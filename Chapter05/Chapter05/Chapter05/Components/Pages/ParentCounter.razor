@@ -1,0 +1,16 @@
+﻿@page "/parent-counter"
+<ChildCounter OnCountChanged="HandleCountChanged" />
+
+<p>Current Count: @count</p>
+
+@code {
+    private int count;
+
+    private void HandleCountChanged(int newCount)
+    {
+        count = newCount;
+        StateHasChanged();
+    }
+}
+
+

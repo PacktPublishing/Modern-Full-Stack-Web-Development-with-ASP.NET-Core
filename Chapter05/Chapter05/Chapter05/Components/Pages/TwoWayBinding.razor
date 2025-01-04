@@ -1,0 +1,10 @@
+﻿@page "/two-way"
+<h3>Two-Way Data Binding</h3>
+<input @bind="name" placeholder="Enter your name" />
+<p>Hello, @name!</p>
+
+@code {
+    private string name;
+}
+
+
