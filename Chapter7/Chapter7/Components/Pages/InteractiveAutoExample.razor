@@ -1,0 +1,17 @@
+﻿@page "/interactive-auto"
+@rendermode InteractiveAuto
+
+<h3>InteractiveAuto Render Mode</h3>
+
+<p>This component is rendered using the InteractiveAuto render mode.</p>
+
+<button @onclick="HandleClick">Click Me</button>
+
+@code {
+    private void HandleClick()
+    {
+        Console.WriteLine("Button clicked");
+    }
+}
+
+

@@ -1,0 +1,11 @@
+﻿<RenderFragmentComponent TItem="string" Item="sampleItem">
+    <ChildContent>
+        <div>This is a templated content: @context</div>
+    </ChildContent>
+    <FooterContent>
+        <div>This is the footer content</div>
+    </FooterContent>
+</RenderFragmentComponent>
+@code {
+    private string sampleItem { get; set; }
+}

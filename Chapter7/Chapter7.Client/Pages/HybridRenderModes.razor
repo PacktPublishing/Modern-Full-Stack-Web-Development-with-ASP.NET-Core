@@ -1,0 +1,16 @@
+﻿@page "/hybrid-render-modes"
+@rendermode InteractiveAuto
+
+<h3>Hybrid Render Modes</h3>
+
+<div>
+    <p>Server-side component:</p>
+    <ServerComponent @rendermode="InteractiveServer" />
+</div>
+<div>
+    <p>WebAssembly component:</p>
+    <WebAssemblyComponent @rendermode="InteractiveWebAssembly" />
+</div>
+
+@code {
+}

@@ -1,0 +1,28 @@
+﻿@page "/card-list"
+
+<h3>Card List</h3>
+
+@foreach (var card in cards)
+{
+    <Card Title="@card.Title" Subtitle="@card.Subtitle">
+        <p>@card.Content</p>
+    </Card>
+}
+
+@code {
+    private List<CardModel> cards = new List<CardModel>
+    {
+        new CardModel { Title = "Card 1", Subtitle = "Subtitle 1", Content = "Content for card 1" },
+        new CardModel { Title = "Card 2", Subtitle = "Subtitle 2", Content = "Content for card 2" },
+        new CardModel { Title = "Card 3", Subtitle = "Subtitle 3", Content = "Content for card 3" }
+    };
+
+    private class CardModel
+    {
+        public string Title { get; set; }
+        public string Subtitle { get; set; }
+        public string Content { get; set; }
+    }
+}
+
+

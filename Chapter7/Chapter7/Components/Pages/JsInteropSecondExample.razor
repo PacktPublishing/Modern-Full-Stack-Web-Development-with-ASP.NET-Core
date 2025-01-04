@@ -1,0 +1,41 @@
+﻿@page "/js-interop-second-example"
+@inject IJSRuntime JSRuntime
+
+<h3>JavaScript Interop Example</h3>
+<button @onclick="InvokeJsFunction">Invoke JS Function</button>
+
+<script>
+    function callBlazorMethod(dotNetObject) {
+        dotNetObject.invokeMethodAsync('BlazorMethod');
+    }
+</script>
+
+@code {
+    private DotNetObjectReference<JSInteropExample> objRef;
+
+    protected override void OnInitialized()
+    {
+        objRef = DotNetObjectReference.Create(new JSInteropExample());
+    }
+
+    private async Task InvokeJsFunction()
+    {
+        await JSRuntime.InvokeVoidAsync("callBlazorMethod", objRef);
+    }
+
+    public void Dispose()
+    {
+        objRef?.Dispose();
+    }
+}
+
+@code{
+    private class JSInteropExample
+    {
+        [JSInvokable]
+        public void BlazorMethod()
+        {
+            Console.WriteLine("Blazor method called from JavaScript");
+        }
+    }
+}

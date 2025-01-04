@@ -1,0 +1,13 @@
+﻿@page "/second-parent"
+@inject SharedStateService SharedState
+
+<h3>Parent component</h3>
+<ChildComponent OnButtonClick="HandleButtonClick"></ChildComponent>
+
+@code {
+    private void HandleButtonClick()
+    {
+        SharedState.Message = "Button clicked in child component";
+        StateHasChanged();
+    }
+}

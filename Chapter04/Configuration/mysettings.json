@@ -1,0 +1,6 @@
+{
+  "ExampleSetting": "Test",
+  "ConnectionStrings": {
+    "Default": "Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=myPassword;"
+  }
+}

@@ -1,0 +1,13 @@
+﻿
+<h3>Click Event Component</h3>
+<p>Button clicked @count times</p>
+<button @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int count = 0;
+
+    private void IncrementCount()
+    {
+        count++;
+    }
+}

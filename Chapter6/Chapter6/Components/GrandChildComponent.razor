@@ -1,0 +1,14 @@
+﻿<input @bind="Title" />
+<button @onclick="HandleClick">Update Title</button>
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+    [Parameter]
+    public EventCallback<string> OnTitleChanged { get; set; }
+
+    private void HandleClick()
+    {
+        OnTitleChanged.InvokeAsync(Title);
+    }
+}

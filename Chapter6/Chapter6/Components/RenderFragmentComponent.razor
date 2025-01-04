@@ -1,0 +1,13 @@
+﻿@typeparam TItem
+<h3>Render Fragment Component</h3>
+@ChildContent(Item)
+<FooterContent />
+
+@code {
+    [Parameter]
+    public TItem Item { get; set; }
+    [Parameter]
+    public RenderFragment<TItem> ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment FooterContent { get; set; }
+}

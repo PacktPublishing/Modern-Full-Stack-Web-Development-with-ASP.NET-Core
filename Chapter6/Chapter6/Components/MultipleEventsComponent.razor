@@ -1,0 +1,22 @@
+﻿<h3>Multiple Events Component</h3>
+<input @oninput="HandleInput" @onfocus="HandleFocus" @onblur="HandleBlur" />
+<p>@message</p>
+
+@code {
+    private string message;
+
+    private void HandleInput(ChangeEventArgs e)
+    {
+        message = "Input changed: " + e.Value;
+    }
+
+    private void HandleFocus()
+    {
+        message = "Input focused";
+    }
+
+    private void HandleBlur()
+    {
+        message = "Input lost focus";
+    }
+}

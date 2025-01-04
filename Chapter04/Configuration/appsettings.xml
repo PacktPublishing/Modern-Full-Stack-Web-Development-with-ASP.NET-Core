@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<configuration>
+
+  <appSettings>
+
+    <!-- Application-specific settings -->
+
+    <add key="ApplicationName" value="MyApp" />
+
+    <add key="Version" value="1.0.0" />
+
+  </appSettings>
+
+
+
+  <connectionStrings>
+
+    <!-- Database connection string -->
+
+    <add name="DefaultConnection"
+
+         connectionString="Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=myPassword;"
+
+         providerName="System.Data.SqlClient" />
+
+  </connectionStrings>
+
+
+
+  <LogSettings>
+
+    <!-- Log file path setting -->
+
+    <add key="LogFilePath" value="C:\Logs\myapp.log" />
+
+  </LogSettings>
+
+</configuration>

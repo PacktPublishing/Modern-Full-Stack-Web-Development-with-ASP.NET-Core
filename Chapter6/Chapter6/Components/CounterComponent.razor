@@ -1,0 +1,6 @@
+﻿@page "/counter"
+@inject CounterService CounterService
+
+<h3>Counter Component</h3>
+<p>Current count: @CounterService.Count</p>
+<button @onclick="CounterService.IncrementCount">Increment</button>

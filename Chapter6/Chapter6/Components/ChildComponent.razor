@@ -1,0 +1,16 @@
+﻿@inject StateContainer StateContainer
+
+<h3>Child Component</h3>
+<p>Shared property: @StateContainer.Property</p>
+
+@code {
+    protected override void OnInitialized()
+    {
+        StateContainer.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        StateContainer.OnChange -= StateHasChanged;
+    }
+}

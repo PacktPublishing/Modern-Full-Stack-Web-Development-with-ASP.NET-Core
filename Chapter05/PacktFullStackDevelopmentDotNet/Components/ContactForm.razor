@@ -1,0 +1,41 @@
+﻿@page "/contact"
+<h3>Contact Form</h3>
+
+<EditForm Model="@contact" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label>Name:</label>
+        <InputText @bind-Value="contact.Name" class="form-control" />
+        <ValidationMessage For="@(() => contact.Name)" />
+    </div>
+
+    <div class="form-group">
+        <label>Email:</label>
+        <InputText @bind-Value="contact.Email" class="form-control" />
+        <ValidationMessage For="@(() => contact.Email)" />
+    </div>
+
+    <div class="form-group">
+        <label>Message:</label>
+        <InputTextArea @bind-Value="contact.Message" class="form-control" />
+        <ValidationMessage For="@(() => contact.Message)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+
+
+@code {
+    private Contact contact = new Contact();
+
+    [Parameter] public EventCallback<Contact> OnContactAdded { get; set; }
+
+    private async Task HandleValidSubmit()
+    {
+        await OnContactAdded.InvokeAsync(contact);
+        contact = new Contact(); // Reset form
+    }
+}

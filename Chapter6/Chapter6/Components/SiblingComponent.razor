@@ -1,0 +1,9 @@
+﻿@inject SharedStateService SharedState
+<h3>Shared Message: @SharedState.Message</h3>
+
+@code {
+    protected override void OnInitialized()
+    {
+        SharedState.Message = "Initial Message";
+    }
+}

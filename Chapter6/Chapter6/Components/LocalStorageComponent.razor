@@ -1,0 +1,22 @@
+﻿@page "/localstorage"
+@using Blazored.LocalStorage
+@inject ILocalStorageService LocalStorage
+
+<h3>Local Storage Component</h3>
+<p>Stored value: @storedValue</p>
+<button @onclick="SaveToLocalStorage">Save</button>
+<button @onclick="LoadFromLocalStorage">Load</button>
+
+@code {
+    private string storedValue;
+
+    private async Task SaveToLocalStorage()
+    {
+        await LocalStorage.SetItemAsync("myValue", "Hello, Blazor!");
+    }
+
+    private async Task LoadFromLocalStorage()
+    {
+        storedValue = await LocalStorage.GetItemAsync<string>("myValue");
+    }
+}

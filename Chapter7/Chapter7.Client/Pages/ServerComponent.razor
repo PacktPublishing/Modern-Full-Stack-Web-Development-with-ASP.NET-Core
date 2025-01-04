@@ -1,0 +1,14 @@
+﻿@page "/server-component"
+
+<h3>Server Component</h3>
+
+<p>This component is rendered using the InteractiveServer render mode.</p>
+
+<button @onclick="HandleClick">Click Me</button>
+
+@code {
+    private void HandleClick()
+    {
+        Console.WriteLine("Button clicked on the server");
+    }
+}

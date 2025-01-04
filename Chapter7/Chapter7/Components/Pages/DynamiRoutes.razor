@@ -1,0 +1,19 @@
+﻿@page "/dynamic-routes"
+
+@inject NavigationManager NavigationManager
+
+<h3>Dynamic Routes</h3>
+
+<input @bind="dynamicRoute" placeholder="Enter a route" />
+<button @onclick="NavigateToRoute">Go</button>
+
+@code {
+    private string dynamicRoute;
+
+    private void NavigateToRoute()
+    {
+        NavigationManager.NavigateTo($"/{dynamicRoute}");
+    }
+}
+
+

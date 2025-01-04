@@ -1,0 +1,19 @@
+﻿@page "/js-interop-parameters-return-values"
+@inject IJSRuntime JSRuntime
+
+<h3>JavaScript Interop Example</h3>
+<button @onclick="AddNumbers">Add Numbers</button>
+
+<script>
+    function addNumbers(a, b) {
+        return a + b;
+    }
+</script>
+
+@code {
+    private async Task AddNumbers()
+    {
+        int result = await JSRuntime.InvokeAsync<int>("addNumbers", 10, 18);
+        Console.WriteLine($"Result from JS: {result}");
+    }
+}

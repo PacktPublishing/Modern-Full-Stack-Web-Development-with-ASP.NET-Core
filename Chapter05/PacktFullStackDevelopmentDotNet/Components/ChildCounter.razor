@@ -1,0 +1,14 @@
+﻿<button @onclick="IncrementCount">Increment</button>
+
+@code {
+    [Parameter] public EventCallback<int> OnCountChanged { get; set; }
+    private int count;
+
+    private async Task IncrementCount()
+    {
+        count++;
+        await OnCountChanged.InvokeAsync(count);
+    }
+}
+
+

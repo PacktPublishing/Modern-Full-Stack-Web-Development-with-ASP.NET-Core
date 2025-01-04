@@ -1,0 +1,14 @@
+﻿@page "/webassembly-component"
+
+<h3>WebAssembly Component</h3>
+
+<p>This component is rendered using the InteractiveWebAssembly render mode.</p>
+
+<button @onclick="HandleClick">Click Me</button>
+
+@code {
+    private void HandleClick()
+    {
+        Console.WriteLine("Button clicked on the client");
+    }
+}

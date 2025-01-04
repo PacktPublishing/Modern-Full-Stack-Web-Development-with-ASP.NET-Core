@@ -1,0 +1,35 @@
+﻿@page "/dynamic-components"
+@using Microsoft.AspNetCore.Components
+
+<h3>Dynamic Components</h3>
+
+<select @onchange="OnComponentSelectionChanged">
+    <option value="">Select a component</option>
+    <option value="FirstComponent">First Component</option>
+    <option value="SecondComponent">Second Component</option>
+</select>
+
+@if (selectedComponentType != null)
+{
+    <DynamicComponent Type="@selectedComponentType" 
+        Parameters="@(new Dictionary<string, object> { { "Title", "Dynamic Title" } })" />
+}
+else
+{
+    <p>Please select a component to render.</p>
+}
+
+@code {
+    private Type? selectedComponentType;
+
+    private void OnComponentSelectionChanged(ChangeEventArgs e)
+    {
+        var componentName = e.Value?.ToString();
+        selectedComponentType = componentName switch
+        {
+            "FirstComponent" => typeof(FirstComponent),
+            "SecondComponent" => typeof(SecondComponent),
+            _ => null
+        };
+    }
+}

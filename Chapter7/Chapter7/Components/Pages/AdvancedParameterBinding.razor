@@ -1,0 +1,32 @@
+﻿@page "/advanced-parameter-binding"
+
+<h3>Advanced Parameter Binding</h3>
+
+<UserProfile User="user" />
+
+@code {
+    private User user = new User
+    {
+        Name = "John Doe",
+        Age = 30,
+        Address = new Address
+        {
+            Street = "123 Main St",
+            City = "Anytown",
+            State = "CA"
+        }
+    };
+}
+
+@code {
+    [Parameter] public User User { get; set; }
+}
+
+<div>
+    <h4>User Profile</h4>
+    <p>Name: @User.Name</p>
+    <p>Age: @User.Age</p>
+    <p>Address: @User.Address.Street, @User.Address.City, @User.Address.State</p>
+</div>
+
+

@@ -1,0 +1,18 @@
+﻿@page "/orders/{orderId:int:min(1)}"
+
+<h3>Order Details</h3>
+
+@if (orderId > 0)
+{
+    <p>Displaying details for order ID: @orderId</p>
+}
+else
+{
+    <p>Invalid order ID.</p>
+}
+
+@code {
+    [Parameter] public int orderId { get; set; }
+}
+
+

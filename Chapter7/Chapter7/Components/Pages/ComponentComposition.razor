@@ -1,0 +1,25 @@
+﻿@page "/component-composition"
+
+<h3>Component Composition</h3>
+
+<Card Title="Card Title" Subtitle="Card Subtitle">
+    <p>This is the content of the card.</p>
+</Card>
+
+@code {
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Subtitle { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>@Title</h4>
+        <h6>@Subtitle</h6>
+    </div>
+    <div class="card-body">
+        @ChildContent
+    </div>
+</div>
+
+

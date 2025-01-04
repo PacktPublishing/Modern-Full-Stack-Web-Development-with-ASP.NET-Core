@@ -1,0 +1,26 @@
+﻿@page "/lifecycle"
+<p>Lifecycle Demo</p>
+
+@code {
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("OnInitialized called");
+    }
+
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine("OnParametersSet called");
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        Console.WriteLine("OnAfterRender called");
+    }
+
+    public void Dispose()
+    {
+        Console.WriteLine("Component disposed");
+    }
+}
+
+

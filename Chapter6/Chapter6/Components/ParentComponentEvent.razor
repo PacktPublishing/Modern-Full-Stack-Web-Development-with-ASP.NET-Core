@@ -1,0 +1,9 @@
+﻿<ChildComponent OnCustomEvent="HandleCustomEvent">
+
+</ChildComponent>
+@code {
+    private void HandleCustomEvent(string message)
+    {
+        Console.WriteLine($"Custom event received with message {message}");
+    }
+}

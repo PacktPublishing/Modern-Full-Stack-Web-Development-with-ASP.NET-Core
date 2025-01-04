@@ -1,0 +1,59 @@
+﻿<h3>Lifecycle Component</h3>
+<p>Data: @data</p>
+<p>Status: @status</p>
+
+@code {
+    private string data;
+    private string status;
+    private Timer _timer;
+
+    protected override async Task OnInitializedAsync()
+    {
+        status = "Initializing...";
+        await LoadDataAsync();
+        status = "Initialized";
+    }
+
+    protected override void OnParametersSet()
+    {
+        status = "Parameters Set";
+        StartTimer();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            status = "First Render Completed";
+            await PerformPostRenderOperationsAsync();
+        }
+    }
+
+    private async Task LoadDataAsync()
+    {
+        await Task.Delay(2000); // Simulate data loading
+        data = "Sample Data Loaded";
+    }
+
+    private async Task PerformPostRenderOperationsAsync()
+    {
+        await Task.Delay(1000); // Simulate additional operations
+        status = "Post Render Operations Completed";
+    }
+
+    private void StartTimer()
+    {
+        _timer = new Timer(Callback, null, 0, 1000);
+    }
+
+    private void Callback(object state)
+    {
+        status = $"Timer tick at {DateTime.Now}";
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
+}

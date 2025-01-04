@@ -1,0 +1,21 @@
+﻿@page "/js-interop-datepicker"
+@inject IJSRuntime JSRuntime
+
+<h3>JavaScript Interop Example</h3>
+<input id="datePicker" />
+<button @onclick="InitializeDatePicker">Initialize Date Picker</button>
+
+<script>
+    function initializeDatePicker(elementId) {
+        $('#' + elementId).datepicker();
+    }
+</script>
+
+@code {
+    private async Task InitializeDatePicker()
+    {
+        await JSRuntime.InvokeVoidAsync("initializeDatePicker", "datePicker");
+    }
+}
+
+

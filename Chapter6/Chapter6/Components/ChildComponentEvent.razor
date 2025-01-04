@@ -1,0 +1,10 @@
+﻿<button @onclick="TriggerCustomEvent"> Trigger Custom Event</button>
+@code {
+    [Parameter]
+    public EventCallback<string> OnCustomEvent { get; set; }
+
+    private async Task TriggerCustomEvent()
+    {
+        await OnCustomEvent.InvokeAsync("Hello from Child Component");
+    }
+}

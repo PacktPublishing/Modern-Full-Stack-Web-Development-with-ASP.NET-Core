@@ -1,0 +1,51 @@
+﻿@page "/edit-user"
+
+<h3>Edit User</h3>
+<EditForm Model="user" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Name: </label>
+        <InputText @bind-Value="user.Name" />
+    </div>
+    <div>
+        <label>Age: </label>
+        <InputNumber @bind-Value="user.Age" />
+    </div>
+    <div>
+        <label>Street: </label>
+        <InputText @bind-Value="user.Address.Street" />
+    </div>
+    <div>
+        <label>City: </label>
+        <InputText @bind-Value="user.Address.City" />
+    </div>
+    <div>
+        <label>State: </label>
+        <InputText @bind-Value="user.Address.State" />
+    </div>
+    <button type="submit">Save</button>
+</EditForm>
+
+<UserProfile User="user" />
+
+@code {
+    private User user = new User
+    {
+        Name = "John Doe",
+        Age = 30,
+        Address = new Address
+        {
+            Street = "123 Main St",
+            City = "Anytown",
+            State = "CA"
+        }
+    };
+
+    private void HandleValidSubmit()
+    {
+        // Save the user details
+        Console.WriteLine("User details saved successfully.");
+    }
+}

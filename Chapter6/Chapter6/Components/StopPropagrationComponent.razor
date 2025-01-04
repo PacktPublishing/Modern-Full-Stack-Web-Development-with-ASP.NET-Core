@@ -1,0 +1,16 @@
+﻿<h3>Stop Propagation Component</h3>
+<div @onclick="HandleDivClick">
+    <button @onclick="HandleButtonClick" @onclick:stopPropagation>Click me</button>
+</div>
+
+@code {
+    private void HandleDivClick()
+    {
+        Console.WriteLine("Div clicked");
+    }
+
+    private void HandleButtonClick()
+    {
+        Console.WriteLine("Button clicked");
+    }
+}

@@ -1,0 +1,15 @@
+﻿<h3>
+    Counter component
+</h3>
+<p>
+    Current count: @CurrentCount
+</p>
+<button onclick="IncrementCount">Increment</button>
+
+@code{
+    private int CurrentCount = 0;
+
+    private void IncrementCount(){
+        CurrentCount++;
+    }
+}

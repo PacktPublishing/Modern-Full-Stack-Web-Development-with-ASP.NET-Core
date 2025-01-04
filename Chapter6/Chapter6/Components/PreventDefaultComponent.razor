@@ -1,0 +1,15 @@
+﻿<h3>Prevent Default Component</h3>
+<form @onsubmit="HandleSubmit" @onsubmit:preventDefault>
+    <input @bind="inputValue" />
+    <button type="submit">Submit</button>
+</form>
+
+@code {
+    private string inputValue;
+
+    private void HandleSubmit()
+    {
+        // Logic to handle form submission without page refresh
+        Console.WriteLine("Form submission prevented. Input value: " + inputValue);
+    }
+}
