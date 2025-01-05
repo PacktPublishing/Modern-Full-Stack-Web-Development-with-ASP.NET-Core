@@ -1,0 +1,66 @@
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+  }
+
+  .container {
+    text-align: center;
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    color: #333;
+  }
+
+  p {
+    color: #666;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #4a90e2;
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .nav-link:hover {
+    background-color: #357ab8;
+  }
+
+  .footer {
+    margin-top: 3rem;
+    color: #aaa;
+  }
+</style>
+
+<div class="container">
+  <h1>Fitness Tracker App - Packt Book</h1>
+  <p>Track your workouts and fitness goals to stay on top of your progress!</p>
+
+  <div class="nav-links">
+    <a routerLink="/workouts" class="nav-link">Workouts</a>
+    <a routerLink="/goals" class="nav-link">Fitness Goals</a>
+  </div>
+
+  <div class="footer">
+    <p>&copy; Fitness Tracker. All rights reserved.</p>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

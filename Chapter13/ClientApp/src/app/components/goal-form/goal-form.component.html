@@ -1,0 +1,25 @@
+<!-- src/app/components/goal-form/goal-form.component.html -->
+<div class="container mt-4">
+    <h2>{{ isEditMode ? 'Edit Goal' : 'Add New Goal' }}</h2>
+    
+    <form (ngSubmit)="saveGoal()">
+      <div class="form-group">
+        <label for="goalName">Goal Name</label>
+        <input type="text" id="goalName" class="form-control" [(ngModel)]="goal.goalName" name="goalName" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" class="form-control" [(ngModel)]="goal.description" name="description" required></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="targetDate">Target Date</label>
+        <input type="date" id="targetDate" class="form-control" [(ngModel)]="goal.targetDate" name="targetDate" required>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-success">{{ isEditMode ? 'Update' : 'Add' }} Goal</button>
+      <a class="btn btn-secondary ml-2" [routerLink]="['/goals']">Cancel</a>
+    </form>
+  </div>
+  

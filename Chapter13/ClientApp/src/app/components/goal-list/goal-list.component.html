@@ -1,0 +1,27 @@
+<div class="container mt-4">
+    <h2 class="text-center">Fitness Goals</h2>
+    <button class="btn btn-primary mb-3" (click)="goToAddGoal()">Add New Goal</button>
+  
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Goal Name</th>
+          <th>Description</th>
+          <th>Target Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let goal of goals">
+          <td>{{ goal.goalName }}</td>
+          <td>{{ goal.description }}</td>
+          <td>{{ goal.targetDate | date }}</td>
+          <td>
+            <button class="btn btn-warning" (click)="goToEditGoal(goal.id)">Edit</button>
+            <button class="btn btn-danger ml-2" (click)="deleteGoal(goal.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
