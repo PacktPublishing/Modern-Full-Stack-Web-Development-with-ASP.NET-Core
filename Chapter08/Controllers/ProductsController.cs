@@ -72,7 +72,7 @@ namespace Chapter8.Controllers
             return NoContent();
         }
 
-        [HttpGet]
+        [HttpGet("search")]
         public ActionResult<IEnumerable<Product>> Get([FromQuery] string name, [FromQuery] double? minPrice)
         {
             var products = Products.AsQueryable();
