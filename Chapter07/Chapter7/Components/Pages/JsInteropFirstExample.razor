@@ -1,9 +1,15 @@
 ﻿@page "/js-interop-first-example"
 @inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
 
 <h3>Javascript Interop Example</h3>
 <button @onclick="ShowAlert">Show Alert</button>
 
+<script>
+    function showAlert(message) {
+        alert(message);
+    }
+</script>
 @code {
     private async Task ShowAlert()
     {
