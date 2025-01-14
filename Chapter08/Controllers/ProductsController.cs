@@ -38,7 +38,7 @@ namespace Chapter8.Controllers
             product.Id = Products.Count + 1;
             Products.Add(product);
 
-            return CreatedAtAction(nameof(Products), product);
+            return CreatedAtAction(nameof(Get), new { id = product.Id }, product);
         }
 
         [HttpPut("{id}")]
