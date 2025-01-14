@@ -9,6 +9,16 @@ namespace Chapter9.Controllers
     public class ShipmentController : Controller
     {
         private readonly List<Shipment> shipments;
+
+        public ShipmentController()
+        {
+            shipments = new List<Shipment>
+            {
+                new Shipment { Id = 1, Type = "International", Description = "Shipment 1" },
+                new Shipment { Id = 2, Type = "Domestic", Description = "Shipment 2" }
+            };
+        }
+
         [HttpGet("{id:int}")]
        public IActionResult GetShipmentById(int id)
         {

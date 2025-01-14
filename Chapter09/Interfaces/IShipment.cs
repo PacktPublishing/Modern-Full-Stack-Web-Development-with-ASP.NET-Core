@@ -2,5 +2,8 @@
 {
     public interface IShipment
     {
+        string Description { get; set; }
+        int Id { get; set; }
+        string Type { get; set; }
     }
 }
