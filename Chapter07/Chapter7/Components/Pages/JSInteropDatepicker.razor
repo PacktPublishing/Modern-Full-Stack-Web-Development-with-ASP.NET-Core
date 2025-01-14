@@ -1,5 +1,6 @@
 ﻿@page "/js-interop-datepicker"
 @inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
 
 <h3>JavaScript Interop Example</h3>
 <input id="datePicker" />
@@ -8,6 +9,7 @@
 <script>
     function initializeDatePicker(elementId) {
         $('#' + elementId).datepicker();
+         $('#' + elementId).focus();
     }
 </script>
 
