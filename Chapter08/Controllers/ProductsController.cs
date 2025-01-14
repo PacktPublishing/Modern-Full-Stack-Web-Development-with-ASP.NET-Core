@@ -90,7 +90,7 @@ namespace Chapter8.Controllers
             return products.ToList();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public ActionResult<Product> Get(int id, [FromHeader(Name = "X-Custom-Header")] string customHeader)
         {
             var product = Products.Find(x=> x.Id == id);
