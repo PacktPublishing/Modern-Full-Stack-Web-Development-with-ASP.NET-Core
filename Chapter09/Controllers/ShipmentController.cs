@@ -29,13 +29,15 @@ namespace Chapter9.Controllers
         [HttpGet("type/{type}")]
         public IActionResult GetShipmentByType(string type)
         {
-            return Ok();
+            var shipments_result = shipments.Where(x => x.Type == type);
+            return Ok(shipments_result);
         }
 
         [HttpGet("{shipmentId:regex(^SHIPMENT-[[0-7]]{{5}}$)}")]
         public IActionResult GetShipmentByCustomNumber(string shipmentId)
         {
-            return Ok();
+            var shipment = shipments.Where(x => x.Id == int.Parse(shipmentId));
+            return Ok(shipment);
         }
     }
 }
