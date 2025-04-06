@@ -1,10 +1,10 @@
-﻿<h3>Debounce Component</h3>
+<h3>Debounce Component</h3>
 <input @oninput="HandleInput" />
 <p>@debouncedValue</p>
 
 @code {
-    private Timer _debounceTimer;
-    private string debouncedValue;
+    private Timer? _debounceTimer;
+    private string? debouncedValue;
 
     private void HandleInput(ChangeEventArgs e)
     {
@@ -12,9 +12,9 @@
         _debounceTimer = new Timer(DebounceCallback, e.Value, 300, Timeout.Infinite);
     }
 
-    private void DebounceCallback(object state)
+    private void DebounceCallback(object? state)
     {
-        debouncedValue = (string)state;
+        debouncedValue = state as string;
         InvokeAsync(StateHasChanged);
     }
 }

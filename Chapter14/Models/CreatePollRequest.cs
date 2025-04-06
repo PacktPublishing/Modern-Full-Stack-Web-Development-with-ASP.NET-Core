@@ -1,9 +1,8 @@
-﻿namespace Chapter14.Models
+namespace Chapter14.Models;
+
+public class CreatePollRequest
 {
-    public class CreatePollRequest
-    {
-        public string Question { get; set; }
-        public List<string> Options { get; set; }
-        public DateTime ExpiresAt { get; set; }
-    }
+    public string Question { get; set; } = default!;
+    public List<string>? Options { get; set; }
+    public DateTime ExpiresAt { get; set; }
 }

@@ -1,26 +1,18 @@
-﻿namespace Chapter03.Middlewares
+namespace Chapter03.Middlewares;
+
+public class CustomLoggingMiddleware
 {
-    public class CustomLoggingMiddleware
+    private readonly RequestDelegate _next;
+
+    public CustomLoggingMiddleware(RequestDelegate next) =>
+        _next = next;
+
+    public async Task InvokeAsync(HttpContext context)
     {
+        // Log the request path 
 
-        private readonly RequestDelegate _next;
+        Console.WriteLine($"Request URL: {context.Request.Path.Value}");
 
-        public CustomLoggingMiddleware(RequestDelegate next)
-        {
-
-            _next = next;
-
-        }
-
-        public async Task InvokeAsync(HttpContext context)
-        {
-
-            // Log the request path 
-
-            Console.WriteLine($"Request URL: {context.Request.Path.Value}");
-
-            await _next(context);
-        }
-
+        await _next(context);
     }
 }

@@ -1,69 +1,63 @@
-﻿using Chapter13.Models;
+using Chapter13.Models;
 using Chapter13.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Chapter13.Controllers
+namespace Chapter13.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class WorkoutsController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class WorkoutsController : ControllerBase
+    private readonly WorkoutService _workoutService;
+
+    public WorkoutsController(WorkoutService workoutService) =>
+        _workoutService = workoutService;
+
+    [HttpGet]
+    public ActionResult<IEnumerable<Workout>> GetWorkouts() =>
+        Ok(_workoutService.GetWorkouts());
+
+    [HttpGet("{id}")]
+    public ActionResult<Workout> GetWorkout(int id)
     {
-        private readonly WorkoutService _workoutService;
+        var workout = _workoutService.GetWorkoutById(id);
 
-        public WorkoutsController(WorkoutService workoutService)
-        {
-            _workoutService = workoutService;
-        }
+        return workout == null
+            ? (ActionResult<Workout>)NotFound()
+            : (ActionResult<Workout>)Ok(workout);
+    }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Workout>> GetWorkouts()
-        {
-            return Ok(_workoutService.GetWorkouts());
-        }
+    [HttpPost]
+    public ActionResult<Workout> CreateWorkout(Workout workout)
+    {
+        _workoutService.AddWorkout(workout);
 
-        [HttpGet("{id}")]
-        public ActionResult<Workout> GetWorkout(int id)
-        {
-            var workout = _workoutService.GetWorkoutById(id);
+        return NoContent();
+    }
 
-            if (workout == null)
-                return NotFound();
-            return Ok(workout);
-        }
+    [HttpPut("{id}")]
+    public IActionResult UpdateWorkout(int id, Workout updatedWorkout)
+    {
+        var workout = _workoutService.GetWorkoutById(id);
 
-        [HttpPost]
-        public ActionResult<Workout> CreateWorkout(Workout workout)
-        {
-            _workoutService.AddWorkout(workout);
+        if (workout == null)
+            return NotFound();
 
-            return NoContent();
-        }
+        _workoutService.UpdateWorkout(id, updatedWorkout);
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateWorkout(int id, Workout updatedWorkout)
-        {
-            var workout = _workoutService.GetWorkoutById(id);
+        return NoContent();
+    }
 
-            if (workout == null)
-                return NotFound();
+    [HttpDelete("{id}")]
+    public IActionResult DeleteWorkout(int id)
+    {
+        var workout = _workoutService.GetWorkoutById(id);
 
-            _workoutService.UpdateWorkout(id, updatedWorkout);
+        if (workout == null)
+            return NotFound();
 
-            return NoContent();
-        }
+        _workoutService.DeleteWorkout(id);
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteWorkout(int id)
-        {
-            var workout = _workoutService.GetWorkoutById(id);
-
-
-            if (workout == null)
-                return NotFound();
-
-            _workoutService.DeleteWorkout(id);
-
-            return NoContent();
-        }
+        return NoContent();
     }
 }

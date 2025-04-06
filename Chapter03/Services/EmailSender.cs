@@ -1,6 +1,5 @@
-﻿namespace Chapter03.Services
+namespace Chapter03.Services;
+
+public class EmailSender : IEmailSender
 {
-    public class EmailSender:IEmailSender
-    {
-    }
 }

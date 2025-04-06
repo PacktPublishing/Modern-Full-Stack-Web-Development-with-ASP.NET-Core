@@ -1,42 +1,41 @@
 using Chapter13.Services;
 
-namespace Chapter13
+namespace Chapter13;
+
+public static class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddControllers();
+        builder.Services.AddSpaStaticFiles(configuration =>
         {
-            var builder = WebApplication.CreateBuilder(args);
+            configuration.RootPath = "ClientApp/dist";
+        });
 
-            builder.Services.AddControllers();
-            builder.Services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAllOrigins",
+                policy => policy.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .AllowAnyHeader());
+        });
 
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAllOrigins",
-                    policy => policy.AllowAnyOrigin()
-                                    .AllowAnyMethod()
-                                    .AllowAnyHeader());
-            });
+        builder.Services.AddSingleton<WorkoutService>();
+        builder.Services.AddSingleton<FitnessGoalService>();
 
-            builder.Services.AddSingleton<WorkoutService>();
-            builder.Services.AddSingleton<FitnessGoalService>();
+        var app = builder.Build();
 
-            var app = builder.Build();
+        app.UseStaticFiles();
+        app.UseSpaStaticFiles();
 
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+        app.UseAuthorization();
 
-            app.UseAuthorization();
+        app.UseCors("AllowAllOrigins");
 
-            app.UseCors("AllowAllOrigins");
+        app.MapControllers();
 
-            app.MapControllers();
-
-            app.Run();
-        }
+        app.Run();
     }
 }

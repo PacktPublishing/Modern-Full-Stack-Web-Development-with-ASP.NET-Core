@@ -1,43 +1,38 @@
-﻿using Chapter9.Interfaces;
 using Chapter9.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Chapter9.Controllers
+namespace Chapter9.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class ShipmentController : Controller
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ShipmentController : Controller
+    private readonly List<Shipment> shipments;
+
+    public ShipmentController() => shipments =
+        [
+            new() { Id = 1, Type = "International", Description = "Shipment 1" },
+            new() { Id = 2, Type = "Domestic", Description = "Shipment 2" }
+        ];
+
+    [HttpGet("{id:int}")]
+    public IActionResult GetShipmentById(int id)
     {
-        private readonly List<Shipment> shipments;
+        var shipment = shipments.Where(x => x.Id == id);
+        return Ok(shipment);
+    }
 
-        public ShipmentController()
-        {
-            shipments = new List<Shipment>
-            {
-                new Shipment { Id = 1, Type = "International", Description = "Shipment 1" },
-                new Shipment { Id = 2, Type = "Domestic", Description = "Shipment 2" }
-            };
-        }
+    [HttpGet("type/{type}")]
+    public IActionResult GetShipmentByType(string type)
+    {
+        var shipments_result = shipments.Where(x => x.Type == type);
+        return Ok(shipments_result);
+    }
 
-        [HttpGet("{id:int}")]
-       public IActionResult GetShipmentById(int id)
-        {
-            var shipment = shipments.Where(x => x.Id == id);
-            return Ok(shipment);
-        }
-
-        [HttpGet("type/{type}")]
-        public IActionResult GetShipmentByType(string type)
-        {
-            var shipments_result = shipments.Where(x => x.Type == type);
-            return Ok(shipments_result);
-        }
-
-        [HttpGet("{shipmentId:regex(^SHIPMENT-[[0-7]]{{5}}$)}")]
-        public IActionResult GetShipmentByCustomNumber(string shipmentId)
-        {
-            var shipment = shipments.Where(x => x.Id == int.Parse(shipmentId));
-            return Ok(shipment);
-        }
+    [HttpGet("{shipmentId:regex(^SHIPMENT-[[0-7]]{{5}}$)}")]
+    public IActionResult GetShipmentByCustomNumber(string shipmentId)
+    {
+        var shipment = shipments.Where(x => x.Id == int.Parse(shipmentId));
+        return Ok(shipment);
     }
 }

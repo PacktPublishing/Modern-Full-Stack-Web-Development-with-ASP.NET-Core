@@ -1,20 +1,16 @@
-﻿namespace Chapter6
+namespace Chapter6;
+
+public class StateContainer
 {
-    public class StateContainer
+    public string Property { get; set; } = default!;
+    public event Action? OnChange;
+
+    public void SetProperty(string value)
     {
-        public string Property { get; set; }
-        public event Action OnChange;
-
-        public void SetProperty(string value)
-        {
-            Property = value;
-            NotifyStateChanged();
-        }
-
-        private void NotifyStateChanged() => OnChange?.Invoke();
+        Property = value;
+        NotifyStateChanged();
     }
 
+    private void NotifyStateChanged() =>
+        OnChange?.Invoke();
 }
-
-
-

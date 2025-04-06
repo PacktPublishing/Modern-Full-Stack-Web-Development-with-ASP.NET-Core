@@ -1,4 +1,4 @@
-﻿<br><br><br><br />
+<br><br><br><br />
 
 <div class="modal" style="display:@(IsVisible ? "block" : "none")">
     <div class="modal-content">
@@ -10,7 +10,7 @@
 @code {
     [Parameter] public bool IsVisible { get; set; }
     [Parameter] public EventCallback<bool> OnClose { get; set; }
-    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; } = default!;
 
     private void CloseModal()
     {
@@ -18,5 +18,3 @@
         OnClose.InvokeAsync(IsVisible);
     }
 }
-
-

@@ -1,9 +1,8 @@
-﻿namespace Authentication.Models
+namespace Authentication.Models;
+
+public class User
 {
-    public class User
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Role { get; set; }
-    }
+    public int Id { get; set; }
+    public string Name { get; set; } = default!;
+    public string Role { get; set; } = default!;
 }

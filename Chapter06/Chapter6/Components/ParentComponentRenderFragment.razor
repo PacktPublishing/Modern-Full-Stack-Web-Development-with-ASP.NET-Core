@@ -1,4 +1,4 @@
-﻿<RenderFragmentComponent TItem="string" Item="sampleItem">
+<RenderFragmentComponent TItem="string" Item="sampleItem">
     <ChildContent>
         <div>This is a templated content: @context</div>
     </ChildContent>
@@ -7,5 +7,5 @@
     </FooterContent>
 </RenderFragmentComponent>
 @code {
-    private string sampleItem { get; set; }
+    private string sampleItem { get; set; } = default!;
 }

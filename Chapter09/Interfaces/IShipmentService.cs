@@ -1,8 +1,7 @@
-﻿namespace Chapter9.Interfaces
+namespace Chapter9.Interfaces;
+
+public interface IShipmentService
 {
-    public interface IShipmentService
-    {
-        bool ShhipmentExists(string shipmentId);
-        Task<IShipment> GetShipment(string shipmentId);
-    }
+    bool ShhipmentExists(string shipmentId);
+    Task<IShipment> GetShipment(string shipmentId);
 }

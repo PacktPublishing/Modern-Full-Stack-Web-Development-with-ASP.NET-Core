@@ -1,4 +1,4 @@
-﻿@page "/dynamic-routes"
+@page "/dynamic-routes"
 @rendermode InteractiveServer
 
 @inject NavigationManager NavigationManager
@@ -9,12 +9,10 @@
 <button @onclick="NavigateToRoute">Go</button>
 
 @code {
-    private string dynamicRoute;
+    public required string dynamicRoute;
 
     private void NavigateToRoute()
     {
         NavigationManager.NavigateTo($"/{dynamicRoute}");
     }
 }
-
-

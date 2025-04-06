@@ -1,47 +1,41 @@
-﻿using Chapter9.Interfaces;
+using Chapter9.Interfaces;
 using Chapter9.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace Chapter9.Controllers.Caching
+namespace Chapter9.Controllers.Caching;
+
+[Route("api/[controller]")]
+[ApiController]
+public class ShipmentController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ShipmentController : ControllerBase
+    private readonly IMemoryCache _cache;
+
+    public ShipmentController(IMemoryCache cache) =>
+        _cache = cache;
+
+    [HttpGet("{id}")]
+    public IActionResult GetShipment(int id)
     {
-        private readonly IMemoryCache _cache;
-
-        public ShipmentController(IMemoryCache cache)
+        var cacheKey = $"Shipment_{id}";
+        if (!_cache.TryGetValue(cacheKey, out IShipment? shipment))
         {
-            _cache = cache;
-        }
+            shipment = GetShipmentFromDatabase(id);
 
-        [HttpGet("{id}")]
-        public IActionResult GetShipment(int id)
-        {
-            var cacheKey = $"Shipment_{id}";
-            if (!_cache.TryGetValue(cacheKey, out IShipment shipment))
+            // Set cache options
+            var cacheOptions = new MemoryCacheEntryOptions
             {
-                shipment = GetShipmentFromDatabase(id);
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10),
+                SlidingExpiration = TimeSpan.FromMinutes(2)
+            };
 
-                // Set cache options
-                var cacheOptions = new MemoryCacheEntryOptions
-                {
-                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10),
-                    SlidingExpiration = TimeSpan.FromMinutes(2)
-                };
-
-                _cache.Set(cacheKey, shipment, cacheOptions);
-            }
-
-            return Ok(shipment);
+            _cache.Set(cacheKey, shipment, cacheOptions);
         }
 
-        private IShipment GetShipmentFromDatabase(int id)
-        {
-            // Simulate a database call
-            return new Shipment();
-        }
+        return Ok(shipment);
     }
 
+    private Shipment GetShipmentFromDatabase(int id) =>
+        // Simulate a database call
+        new Shipment();
 }

@@ -1,4 +1,4 @@
-﻿@page "/orders/{orderId:int:min(1)}"
+@page "/orders/{orderId:int:min(1)}"
 
 <h3>Order Details</h3>
 
@@ -14,5 +14,3 @@ else
 @code {
     [Parameter] public int orderId { get; set; }
 }
-
-

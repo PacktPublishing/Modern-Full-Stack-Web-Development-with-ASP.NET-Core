@@ -1,4 +1,4 @@
-﻿@page "/component-composition"
+@page "/component-composition"
 
 <h3>Component Composition</h3>
 
@@ -7,9 +7,9 @@
 </Card>
 
 @code {
-    [Parameter] public string Title { get; set; }
-    [Parameter] public string Subtitle { get; set; }
-    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public required string Title { get; set; }
+    [Parameter] public required string Subtitle { get; set; }
+    [Parameter] public required RenderFragment ChildContent { get; set; }
 }
 
 <div class="card">
@@ -21,5 +21,3 @@
         @ChildContent
     </div>
 </div>
-
-

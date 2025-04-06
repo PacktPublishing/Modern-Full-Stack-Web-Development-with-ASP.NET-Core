@@ -8,113 +8,75 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
-namespace Authentication.Controllers
+namespace Authentication.Controllers;
+
+public class HomeController(ILogger<HomeController> logger) : Controller
 {
-    public class HomeController : Controller
+    public IActionResult Index() => View();
+
+    public IActionResult Privacy() => View();
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error() =>
+        View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
+    [HttpPost]
+    public async Task<IActionResult> Login(string username, string password)
+
     {
-        private readonly ILogger<HomeController> _logger;
+        var user = AuthenticateUser(username, password);
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(string username, string password)
+        if (user != null)
 
         {
-
-            var user = AuthenticateUser(username, password);
-
-            if (user != null)
+            var claims = new List<Claim>
 
             {
+                new(ClaimTypes.Name, user.Name),
 
-                var claims = new List<Claim>
+                new(ClaimTypes.Role, user.Role),
+            };
 
-                {
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    new Claim(ClaimTypes.Name, user.Name),
+            var authProperties = new AuthenticationProperties { IsPersistent = true };
 
-                    new Claim(ClaimTypes.Role, user.Role),
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
 
-                };
+                new ClaimsPrincipal(claimsIdentity), authProperties);
 
-
-
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                var authProperties = new AuthenticationProperties { IsPersistent = true };
-
-
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-
-                    new ClaimsPrincipal(claimsIdentity), authProperties);
-
-
-
-                return RedirectToAction("Index", "Home");
-
-            }
-
-
-
-            return View();
-
+            return RedirectToAction("Index", "Home");
         }
 
-        private User AuthenticateUser(string username, string password)
-        {
-            //Add your custom logic for auth
+        return View();
+    }
 
-            return null;
-        }
+    private User? AuthenticateUser(string username, string password) =>
+        //Add your custom logic for auth
 
-        private string GenerateJwtToken(string username, List<Claim> claims)
+        null;
 
-        {
+    private string GenerateJwtToken(string username, List<Claim> claims)
 
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSecretKeyHere"));
+    {
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSecretKeyHere"));
 
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
+        var token = new JwtSecurityToken(
 
+            issuer: "YourIssuer",
 
-            var token = new JwtSecurityToken(
+            audience: "YourAudience",
 
-                issuer: "YourIssuer",
+            claims: claims,
 
-                audience: "YourAudience",
+            expires: DateTime.Now.AddHours(3),
 
-                claims: claims,
+            signingCredentials: credentials
 
-                expires: DateTime.Now.AddHours(3),
+        );
 
-                signingCredentials: credentials
-
-            );
-
-
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-
-        }
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }

@@ -1,8 +1,7 @@
-﻿namespace Chapter14.Models
+namespace Chapter14.Models;
+
+public class VoteRequest
 {
-    public class VoteRequest
-    {
-        public string UserId { get; set; }
-        public int OptionId { get; set; }
-    }
+    public string? UserId { get; set; }
+    public int OptionId { get; set; }
 }

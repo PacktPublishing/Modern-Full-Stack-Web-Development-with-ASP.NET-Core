@@ -1,4 +1,4 @@
-﻿@page "/parent-simple-button";
+@page "/parent-simple-button";
 <h3>ParentComponentSimpleButton</h3>
 
 <SimpleButton ButtonText="Click me" OnClick="ShowMessage" />
@@ -6,7 +6,7 @@
 <p>@Message</p>
 
 @code {
-    private string Message;
+    private string Message = default!;
 
     private void ShowMessage()
     {

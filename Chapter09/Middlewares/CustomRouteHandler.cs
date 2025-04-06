@@ -1,39 +1,29 @@
-﻿using Chapter9.Interfaces;
+using Chapter9.Interfaces;
 using Newtonsoft.Json;
 
-namespace Chapter9.Middlewares
+namespace Chapter9.Middlewares;
+
+public class CustomRouteHandler(IShipmentService shipmentService) : IRouter
 {
-    public class CustomRouteHandler : IRouter
+    public async Task RouteAsync(RouteContext context)
     {
-        private readonly IShipmentService _shipmentService;
+        var path = (context.HttpContext.Request.Path.Value ?? "").Trim('/');
+        var segments = path.Split('/');
 
-        public CustomRouteHandler(IShipmentService shipmentService)
+        if (segments.Length == 2 && segments[0] == "shipments")
         {
-            _shipmentService = shipmentService;
-        }
-
-        public async Task RouteAsync(RouteContext context)
-        {
-            var path = context.HttpContext.Request.Path.Value.Trim('/');
-            var segments = path.Split('/');
-
-            if (segments.Length == 2 && segments[0] == "shipments")
+            var shipmentId = segments[1];
+            if (shipmentService.ShhipmentExists(shipmentId))
             {
-                var shipmentId = segments[1];
-                if (_shipmentService.ShhipmentExists(shipmentId))
+                context.Handler = async httpContext =>
                 {
-                    context.Handler = async httpContext =>
-                    {
-                        var shipment = await _shipmentService.GetShipment(shipmentId);
-                        await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(shipment));
-                    };
-                }
+                    var shipment = await shipmentService.GetShipment(shipmentId);
+                    await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(shipment));
+                };
             }
         }
-
-        public VirtualPathData GetVirtualPath(VirtualPathContext context)
-        {
-            return null;
-        }
+        await Task.CompletedTask;
     }
+
+    public VirtualPathData? GetVirtualPath(VirtualPathContext context) => null;
 }

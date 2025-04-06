@@ -1,68 +1,67 @@
 using Asp.Versioning;
-using Asp.Versioning.ApiExplorer;
 
-namespace Chapter8
+namespace Chapter8;
+
+public static class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        var builder = WebApplication.CreateBuilder(args);
+
+        // Add services to the DI container
+        builder.Services.AddControllers();
+
+        // Add API Versioning
+        builder.Services.AddApiVersioning(options =>
         {
-            var builder = WebApplication.CreateBuilder(args);
+            options.DefaultApiVersion = new ApiVersion(1, 0);
+            options.AssumeDefaultVersionWhenUnspecified = true;
+            options.ReportApiVersions = true;
+        });
 
-            // Add services to the DI container
-            builder.Services.AddControllers();
+        // Add Versioned API Explorer
+        //builder.Services.AddApiVersioning();
+        builder.Services.AddVersionedApiExplorer(options =>
+        {
+            options.GroupNameFormat = "'v'VVV"; // e.g., v1, v2
+            options.SubstituteApiVersionInUrl = true;
+        });
 
-            // Add API Versioning
-            builder.Services.AddApiVersioning(options =>
-            {
-                options.DefaultApiVersion = new ApiVersion(1, 0);
-                options.AssumeDefaultVersionWhenUnspecified = true;
-                options.ReportApiVersions = true;
-            });
+        // Add Swagger Generator
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
 
-            // Add Versioned API Explorer
-            builder.Services.AddVersionedApiExplorer(options =>
-            {
-                options.GroupNameFormat = "'v'VVV"; // e.g., v1, v2
-                options.SubstituteApiVersionInUrl = true;
-            });
+        var app = builder.Build();
 
-            // Add Swagger Generator
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+        // Configure middleware and Swagger UI
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
 
-            var app = builder.Build();
+            app.UseSwagger();
 
-            // Configure middleware and Swagger UI
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
+            //app.UseSwaggerUI(options =>
+            //{
+            //    var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
-                app.UseSwagger();
-
-                //app.UseSwaggerUI(options =>
-                //{
-                //    var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-
-                //    foreach (var description in provider.ApiVersionDescriptions)
-                //    {
-                //        options.SwaggerEndpoint(
-                //            $"/swagger/{description.GroupName}/swagger.json",
-                //            $"API {description.ApiVersion}"
-                //        );
-                //    }
-                //});
-            }
-            else
-            {
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseAuthorization();
-            app.MapControllers();
-
-            app.Run();
+            //    foreach (var description in provider.ApiVersionDescriptions)
+            //    {
+            //        options.SwaggerEndpoint(
+            //            $"/swagger/{description.GroupName}/swagger.json",
+            //            $"API {description.ApiVersion}"
+            //        );
+            //    }
+            //});
         }
+        else
+        {
+            app.UseHsts();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseAuthorization();
+        app.MapControllers();
+
+        app.Run();
     }
 }

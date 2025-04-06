@@ -1,4 +1,4 @@
-﻿@page "/js-interop-second-example"
+@page "/js-interop-second-example"
 @inject IJSRuntime JSRuntime
 @rendermode InteractiveServer
 
@@ -13,7 +13,7 @@
 </script>
 
 @code {
-    private DotNetObjectReference<JSInteropExample> objRef;
+    private DotNetObjectReference<JSInteropExample>? objRef;
 
     protected override void OnInitialized()
     {
