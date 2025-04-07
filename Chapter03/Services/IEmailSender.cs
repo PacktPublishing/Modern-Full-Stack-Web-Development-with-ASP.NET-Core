@@ -1,6 +1,5 @@
-﻿namespace Chapter03.Services
+namespace Chapter03.Services;
+
+public interface IEmailSender
 {
-    public interface IEmailSender
-    {
-    }
 }

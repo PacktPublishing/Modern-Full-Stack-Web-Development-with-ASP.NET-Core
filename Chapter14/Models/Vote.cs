@@ -1,13 +1,10 @@
-﻿namespace Chapter14.Models
+namespace Chapter14.Models;
+
+public class Vote
 {
-    public class Vote
-    {
-        public int Id { get; set; }
-        public int PollId { get; set; } 
-        public int OptionId { get; set; } 
-        public string UserId { get; set; } 
-        public DateTime VotedAt { get; set; } 
-    }
-
+    public int Id { get; set; }
+    public int PollId { get; set; }
+    public int OptionId { get; set; }
+    public string UserId { get; set; } = default!;
+    public DateTime VotedAt { get; set; }
 }
-

@@ -1,7 +1,6 @@
-﻿namespace Chapter03.Services
+namespace Chapter03.Services;
+
+public interface INotificationService
 {
-    public interface INotificationService
-    {
-        void SendNotification(string message);
-    }
+    void SendNotification(string message);
 }

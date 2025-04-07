@@ -1,13 +1,11 @@
-﻿namespace Chapter03.Services
+namespace Chapter03.Services;
+
+public class NotificationService : INotificationService
 {
-    public class NotificationService: INotificationService
+    public void SendNotification(string message)
     {
-        public void SendNotification(string message)
-        {
 
-            // Code to send notification 
-
-        }
+        // Code to send notification 
 
     }
 }

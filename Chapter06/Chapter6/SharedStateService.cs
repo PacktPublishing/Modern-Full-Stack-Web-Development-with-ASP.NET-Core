@@ -1,7 +1,6 @@
-﻿namespace Chapter6
+namespace Chapter6;
+
+public class SharedStateService
 {
-    public class SharedStateService
-    {
-        public string Message { get; set; }
-    }
+    public string Message { get; set; } = string.Empty;
 }

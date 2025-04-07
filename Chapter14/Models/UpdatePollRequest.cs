@@ -1,7 +1,6 @@
-﻿namespace Chapter14.Models
+namespace Chapter14.Models;
+
+public class UpdatePollRequest
 {
-    public class UpdatePollRequest
-    {
-        public DateTime ExpiresAt { get; set; }
-    }
+    public DateTime ExpiresAt { get; set; }
 }

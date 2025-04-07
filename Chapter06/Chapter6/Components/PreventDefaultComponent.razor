@@ -1,11 +1,11 @@
-﻿<h3>Prevent Default Component</h3>
+<h3>Prevent Default Component</h3>
 <form @onsubmit="HandleSubmit" @onsubmit:preventDefault>
     <input @bind="inputValue" />
     <button type="submit">Submit</button>
 </form>
 
 @code {
-    private string inputValue;
+    private string inputValue = default!;
 
     private void HandleSubmit()
     {

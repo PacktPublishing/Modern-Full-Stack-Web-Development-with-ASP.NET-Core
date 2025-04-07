@@ -1,19 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 
-namespace Chapter4
+namespace Chapter4;
+
+public class TextFileConfigurationSource : IConfigurationSource
+
 {
-    public class TextFileConfigurationSource : IConfigurationSource
+    public string FilePath { get; set; } = default!;
 
-    {
-
-        public string FilePath { get; set; }
-
-        public IConfigurationProvider Build(IConfigurationBuilder builder)
-        {
-
-            return new TextFileConfigurationProvider(FilePath);
-
-        }
-
-    }
+    public IConfigurationProvider Build(IConfigurationBuilder builder) =>
+        new TextFileConfigurationProvider(FilePath);
 }

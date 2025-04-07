@@ -1,9 +1,8 @@
-﻿namespace Chapter9.Interfaces
+namespace Chapter9.Interfaces;
+
+public interface IShipment
 {
-    public interface IShipment
-    {
-        string Description { get; set; }
-        int Id { get; set; }
-        string Type { get; set; }
-    }
+    string Description { get; set; }
+    int Id { get; set; }
+    string Type { get; set; }
 }

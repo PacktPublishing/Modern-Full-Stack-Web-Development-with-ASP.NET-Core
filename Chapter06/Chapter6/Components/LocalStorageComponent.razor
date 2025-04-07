@@ -8,7 +8,7 @@
 <button @onclick="LoadFromLocalStorage">Load</button>
 
 @code {
-    private string storedValue;
+    private string? storedValue;
 
     private async Task SaveToLocalStorage()
     {
@@ -17,6 +17,6 @@
 
     private async Task LoadFromLocalStorage()
     {
-        storedValue = await LocalStorage.GetItemAsync<string>("myValue");
+        storedValue = await LocalStorage.GetItemAsync<string?>("myValue");
     }
 }

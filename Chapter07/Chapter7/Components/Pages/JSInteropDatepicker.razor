@@ -1,4 +1,4 @@
-﻿@page "/js-interop-datepicker"
+@page "/js-interop-datepicker"
 @inject IJSRuntime JSRuntime
 @rendermode InteractiveServer
 
@@ -19,5 +19,3 @@
         await JSRuntime.InvokeVoidAsync("initializeDatePicker", "datePicker");
     }
 }
-
-

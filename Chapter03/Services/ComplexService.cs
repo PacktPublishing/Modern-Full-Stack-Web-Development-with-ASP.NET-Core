@@ -1,58 +1,37 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
 
-namespace Chapter03.Services
+namespace Chapter03.Services;
+
+public class ComplexService(IAnotherService anotherService, IOptions<ServiceConfig> options) : IComplexService
 {
-    public class ComplexService : IComplexService
+    private readonly ServiceConfig _config = options.Value;
+
+    public void PerformAction()
     {
 
-        private readonly IAnotherService _anotherService;
-        private readonly ServiceConfig _config;
-
-        public ComplexService(IAnotherService anotherService, IOptions<ServiceConfig> options)
-
-        {
-
-            _anotherService = anotherService;
-
-            _config = options.Value;
-
-        }
-
-        public void PerformAction()
-        {
-
-            // Use _anotherService and _config to perform actions 
-
-        }
+        // Use _anotherService and _config to perform actions 
 
     }
+}
 
-    public class AnotherService : IAnotherService
-    {
-        public void AnotherAction()
-        {
-
-            // Implementation 
-
-        }
-
-    }
-
-
-    public interface IAnotherService
+public class AnotherService : IAnotherService
+{
+    public void AnotherAction()
     {
 
-        void AnotherAction();
+        // Implementation 
 
     }
+}
 
+public interface IAnotherService
+{
+    void AnotherAction();
+}
 
-    public class ServiceConfig
-    {
+public class ServiceConfig
+{
+    public string Url { get; set; } = default!;
 
-        public string Url { get; set; }
-
-        public int Timeout { get; set; }
-
-    }
+    public int Timeout { get; set; }
 }

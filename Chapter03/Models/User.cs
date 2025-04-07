@@ -1,6 +1,5 @@
-﻿namespace Chapter03.Models
+namespace Chapter03.Models;
+
+public class User
 {
-    public class User
-    {
-    }
 }

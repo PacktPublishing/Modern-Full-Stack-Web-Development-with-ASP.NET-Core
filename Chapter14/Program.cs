@@ -1,52 +1,47 @@
 using Chapter14.Hubs;
 using Chapter14.Services;
 
-namespace Chapter14
+namespace Chapter14;
+
+public static class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddControllers();
+        builder.Services.AddSignalR();
+        builder.Services.AddSingleton<PollService>();
+
+        builder.Services.AddSpaStaticFiles(configuration =>
         {
-            var builder = WebApplication.CreateBuilder(args);
+            configuration.RootPath = "ClientApp/dist";
+        });
 
-            builder.Services.AddControllers();
-            builder.Services.AddSignalR();
-            builder.Services.AddSingleton<PollService>();
+        builder.Services.AddCors(options =>
 
-            builder.Services.AddSpaStaticFiles(configuration =>
+        {
+            options.AddPolicy("AllowSpecificOrigins", policy =>
             {
-
-                configuration.RootPath = "ClientApp/dist";
-
+                policy.WithOrigins("http://localhost:3000")
+                      .AllowAnyMethod()
+                      .AllowAnyHeader()
+                      .AllowCredentials();
             });
+        });
 
-            builder.Services.AddCors(options =>
+        var app = builder.Build();
 
-            {
+        app.UseStaticFiles();
+        app.UseSpaStaticFiles();
 
-                options.AddPolicy("AllowSpecificOrigins", policy =>
-                {
-                    policy.WithOrigins("http://localhost:3000") 
-                          .AllowAnyMethod()
-                          .AllowAnyHeader()
-                          .AllowCredentials();
-                });
+        app.UseAuthorization();
 
-            });
+        app.UseCors("AllowSpecificOrigins");
 
-            var app = builder.Build();
+        app.MapControllers();
+        app.MapHub<VoteHub>("/voteHub");
 
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
-
-            app.UseAuthorization();
-
-            app.UseCors("AllowSpecificOrigins");
-
-            app.MapControllers();
-            app.MapHub<VoteHub>("/voteHub");
-
-            app.Run();
-        }
+        app.Run();
     }
 }
